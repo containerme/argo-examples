@@ -1,12 +1,26 @@
-bases:
-- ../../base
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - path: replicas.yaml # Of patch.yaml, zolang het bestand maar bestaat
+
+configMapGenerator:
+  - name: mykustom-map
+    envs:               # Let op: 'envs' (meervoud) is vaak beter voor .properties
+      - config.properties
+
+#bases:
+#- ../../base
 
 # patches:
 # - replicas.yaml
 
-patches:
-  - path: patch.yaml
+#patches:
+#  - path: patch.yaml
 
-configMapGenerator:
-- name: mykustom-map
-  env: config.properties
+#configMapGenerator:
+#- name: mykustom-map
+ # env: config.properties
